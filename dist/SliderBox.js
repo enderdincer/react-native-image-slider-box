@@ -3,8 +3,8 @@ import {
   View,
   Image,
   ActivityIndicator,
-  TouchableHighlight,
-  Dimensions
+  TouchableOpacity,
+  Dimensions,
 } from "react-native";
 
 import Carousel, { Pagination } from "react-native-snap-carousel"; //Thank From distributer(s) of this lib
@@ -35,7 +35,7 @@ export class SliderBox extends Component {
     super(props);
     this.state = {
       currentImage: 0,
-      loading: []
+      loading: [],
     };
     this.onCurrentImagePressedHandler = this.onCurrentImagePressedHandler.bind(
       this
@@ -43,7 +43,7 @@ export class SliderBox extends Component {
     this.onSnap = this.onSnap.bind(this);
   }
   componentDidMount() {
-    let a = [...Array(this.props.images.length).keys()].map(i => false);
+    let a = [...Array(this.props.images.length).keys()].map((i) => false);
   }
   onCurrentImagePressedHandler() {
     if (this.props.onCurrentImagePressed) {
@@ -66,29 +66,29 @@ export class SliderBox extends Component {
       disableOnPress,
       resizeMethod,
       resizeMode,
-      imageLoadingColor = "#E91E63"
+      imageLoadingColor = "#E91E63",
     } = this.props;
     return (
       <View
         style={{
           position: "relative",
-          justifyContent: "center"
+          justifyContent: "center",
         }}
       >
-        <TouchableHighlight
+        <TouchableOpacity
           key={index}
           disabled={disableOnPress}
           onPress={this.onCurrentImagePressedHandler}
-          underlayColor={'transparent'}
+          underlayColor={"transparent"}
         >
           <ImageComponent
             style={[
               {
                 width: "100%",
                 height: sliderBoxHeight || 200,
-                alignSelf: "center"
+                alignSelf: "center",
               },
-              ImageComponentStyle
+              ImageComponentStyle,
             ]}
             source={typeof item === "string" ? { uri: item } : item}
             resizeMethod={resizeMethod || "resize"}
@@ -102,14 +102,14 @@ export class SliderBox extends Component {
             }}
             {...this.props}
           />
-        </TouchableHighlight>
+        </TouchableOpacity>
         {!this.state.loading[index] && (
           <ActivityIndicator
             size="large"
             color={imageLoadingColor}
             style={{
               position: "absolute",
-              alignSelf: "center"
+              alignSelf: "center",
             }}
           />
         )}
@@ -125,7 +125,7 @@ export class SliderBox extends Component {
       dotColor,
       inactiveDotColor,
       paginationBoxStyle,
-      paginationBoxVerticalPadding
+      paginationBoxVerticalPadding,
     } = this.props;
     return (
       <Pagination
@@ -144,7 +144,7 @@ export class SliderBox extends Component {
           paginationBoxVerticalPadding
             ? { paddingVertical: paginationBoxVerticalPadding }
             : {},
-          paginationBoxStyle ? paginationBoxStyle : {}
+          paginationBoxStyle ? paginationBoxStyle : {},
         ]}
         {...this.props}
       />
@@ -158,7 +158,7 @@ export class SliderBox extends Component {
       autoplay,
       parentWidth,
       loopClonesPerSide,
-      autoplayDelay
+      autoplayDelay,
     } = this.props;
     return (
       <View>
@@ -166,15 +166,15 @@ export class SliderBox extends Component {
           autoplayDelay={autoplayDelay}
           layout={"default"}
           data={images}
-          ref={c => (this._ref = c)}
+          ref={(c) => (this._ref = c)}
           loop={circleLoop || false}
           enableSnap={true}
           autoplay={autoplay || false}
           itemWidth={parentWidth || width}
           sliderWidth={parentWidth || width}
           loopClonesPerSide={loopClonesPerSide || 5}
-          renderItem={item => this._renderItem(item)}
-          onSnapToItem={index => this.onSnap(index)}
+          renderItem={(item) => this._renderItem(item)}
+          onSnapToItem={(index) => this.onSnap(index)}
           {...this.props}
         />
         {images.length > 1 && this.pagination}
@@ -185,9 +185,9 @@ export class SliderBox extends Component {
 
 const colors = {
   dotColors: "#BDBDBD",
-  white: "#FFFFFF"
+  white: "#FFFFFF",
 };
 
 SliderBox.defaultProps = {
-  ImageComponent: Image
+  ImageComponent: Image,
 };
